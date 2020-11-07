@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import marketReturns from './assets/returns.json'
+import Table from './components/Table';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      marketReturns: marketReturns
+    }
+  };
+  render() {
+    console.log("returns: ", this.state.marketReturns)
+    let displayedMarketReturns = this.state.marketReturns
+    return (
+      <div>
+        <Table marketReturns={displayedMarketReturns} />
+      </div>
+    )
+  }
 }
 
 export default App;
