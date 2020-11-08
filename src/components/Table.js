@@ -33,17 +33,6 @@ class Table extends Component {
 								</tr>
 							)
 						})}
-						{/* {this.props.products.map(product => {
-							return (
-								<tr key={product.id}>
-									{!this.props.columns.id || <td>{product.id}</td>}
-									{!this.props.columns.name || <td>{product.name}</td>}
-									{!this.props.columns.department || <td>{product.department}</td>}
-									{!this.props.columns.currency || <td>{product.currency}</td>}
-									{!this.props.columns.price || <td>{product.price}</td>}
-								</tr>
-							)
-						})} */}
 					</tbody>
 				</table>
 			</div>
