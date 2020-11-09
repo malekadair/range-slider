@@ -21,20 +21,20 @@ class Table extends Component {
 		this.cumulativeTotal = 0
 
 		return (
-			<div id="product-list">
+			<div className="returnsTable" >
 				<header>
 					<h1>S&P 500 Total Returns by Year</h1>
 					<h3>Currently Displaying {this.props.selectedRange[0]} Through {this.props.selectedRange[1]}</h3>
 				</header>
 				<table>
-					<thead>
+					<thead className="tableHead">
 						<tr>
 							<th>Year</th>
 							<th>Total Return</th>
 							<th>Cumulative Return</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody className="tableBody">
 						{this.props.marketReturns.map((marketReturn, index, arr) => {
 
 							// console.log('initial CT: ', this.state.cumulativeTotal)
