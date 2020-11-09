@@ -104,6 +104,7 @@ class App extends Component {
           value={[selectedRange[0], selectedRange[1]]}
           onChange={this.handleRangeChange}
           allowCross='false'
+          className='rangeSlider'
         />
         <Table
           marketReturns={displayedMarketReturns}

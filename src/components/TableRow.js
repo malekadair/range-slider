@@ -15,7 +15,7 @@ class TableRow extends Component {
 			<tr className="tableRow" key={this.props.index}>
 				<td>{marketReturn.year}</td>
 				<td style={marketReturn.totalReturn < 0 ? { color: 'red' } : {}}>{marketReturn.totalReturn}</td>
-				<td>{this.props.cumulativeTotal}</td>
+				<td style={this.props.cumulativeTotal < 0 ? { color: 'red' } : {}}>{this.props.cumulativeTotal}</td>
 			</tr>
 		)
 	}

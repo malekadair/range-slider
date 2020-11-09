@@ -23,8 +23,8 @@ class Table extends Component {
 		return (
 			<div className="returnsTable" >
 				<header>
-					<h1>S&P 500 Total Returns by Year</h1>
 					<h3>Currently Displaying {this.props.selectedRange[0]} Through {this.props.selectedRange[1]}</h3>
+					<h4>S&P 500 Total Returns by Year</h4>
 				</header>
 				<table>
 					<thead className="tableHead">
