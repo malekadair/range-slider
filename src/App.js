@@ -6,24 +6,30 @@ import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 //todos:
 //[X] build table structure
-//[ ] order data in ascending order
+//[X] order data in ascending order
 //[ ] import and set up slider w/ range
 //[ ] filter range values onChange
-//[ ] 
+//[ ] acumulate totals for the cumulative column
 //[ ]
 
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       marketReturns: marketReturns,
+      displayedMarketReturns: marketReturns,
       min: "",
       max: "",
-      selectedRange: []
+      selectedRange: [],
     }
+    const Slider = require('rc-slider');
+    const createSliderWithTooltip = Slider.createSliderWithTooltip;
+    const Range = createSliderWithTooltip(Slider.Range);
+
   };
+
   componentWillMount() {
+    marketReturns.reverse()
     this.setRange()
   }
 
@@ -50,39 +56,61 @@ class App extends Component {
     // sets min and max range values to state
     this.setState({
       min: minRange,
-      max: maxRange
+      max: maxRange,
+      selectedRange: [minRange, maxRange]
+    })
+  }
+  filterReturns = () => {
+    const { selectedRange, marketReturns } = this.state
+    const filteredReturns = marketReturns.filter(marketReturn => {
+      if (marketReturn.year >= selectedRange[0] && marketReturn.year <= selectedRange[1]) {
+        return true
+      }
+      return false
+    })
+    this.setState({
+      displayedMarketReturns: filteredReturns
     })
   }
 
-  handleRangeChange = values => {
-    console.log(values)
+  handleRangeChange = (values) => {
+    // console.log('values: ', values)
     this.setState({
       selectedRange: values
     })
-    // this.setState({})
-    // const { name, value, type, checked } = event.target;
-    // type === "checkbox"
-    //   ? this.setState({ [name]: checked })
-    //   : this.setState({ [name]: value });
-    // this.props.onPriceInputChange(name, value)
+    this.filterReturns()
   };
 
+
+
   render() {
-    const Slider = require('rc-slider');
-    const createSliderWithTooltip = Slider.createSliderWithTooltip;
-    const Range = createSliderWithTooltip(Slider.Range);
-    console.log("returns: ", this.state.marketReturns)
-    let displayedMarketReturns = this.state.marketReturns
+    //destructuring state variables
+    const {
+      marketReturns,
+      min,
+      max,
+      selectedRange,
+      displayedMarketReturns,
+      // cumulativeTotal
+    } = this.state
+
+    // console.log("returns: ", marketReturns)
+    // console.log([selectedRange[0], selectedRange[1]])
     return (
       <div>
         <Range
-          min={this.state.min}
-          max={this.state.max}
-          defaultValue={[this.state.min, this.state.max]}
-          // value={[this.state.selectedRange[1], this.state.selectedRange[0]]}
-          onAfterChange={(values, event) => this.handleRangeChange(values, event)}
+          min={min}
+          max={max}
+          defaultValue={[min, max]}
+          value={[selectedRange[0], selectedRange[1]]}
+          onChange={this.handleRangeChange}
+          allowCross='false'
         />
-        <Table marketReturns={displayedMarketReturns} />
+        <Table
+          marketReturns={displayedMarketReturns}
+        // cumulativeTotal={cumulativeTotal}
+        // addCumulativeTotal={this.addCumulativeTotal}
+        />
       </div>
     )
   }
