@@ -19,6 +19,9 @@ table {
 header {
   text-align: center;
 }
+header h4 {
+  font-weight: 300;
+}
 tr {
   border-top: 1px solid #dee2e6;
 }
