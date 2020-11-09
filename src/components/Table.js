@@ -23,7 +23,8 @@ class Table extends Component {
 		return (
 			<div id="product-list">
 				<header>
-					<strong>S&P 500 Total Returns by Year</strong>
+					<h1>S&P 500 Total Returns by Year</h1>
+					<h3>Currently Displaying {this.props.selectedRange[0]} Through {this.props.selectedRange[1]}</h3>
 				</header>
 				<table>
 					<thead>
@@ -43,17 +44,17 @@ class Table extends Component {
 							// console.log("post", this.state.cumulativeTotal)
 
 							return (
-								// <TableRow
-								// 	index={index}
-								// 	marketReturn={marketReturn}
-								// 	cumulativeTotal={this.props.cumulativeTotal}
-								// 	addCumulativeTotal={this.props.addCumulativeTotal}
-								// />
-								<tr key={this.props.index}>
-									<td>{marketReturn.year}</td>
-									<td>{marketReturn.totalReturn}</td>
-									<td>{this.cumulativeTotal}</td>
-								</tr>
+								<TableRow
+									index={index}
+									marketReturn={marketReturn}
+									cumulativeTotal={this.cumulativeTotal}
+								// addCumulativeTotal={this.props.addCumulativeTotal}
+								/>
+								// <tr key={this.props.index}>
+								// 	<td>{marketReturn.year}</td>
+								// 	<td>{marketReturn.totalReturn}</td>
+								// 	<td>{this.cumulativeTotal}</td>
+								// </tr>
 
 							)
 						})}

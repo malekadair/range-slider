@@ -7,9 +7,9 @@ import 'rc-slider/assets/index.css';
 //todos:
 //[X] build table structure
 //[X] order data in ascending order
-//[ ] import and set up slider w/ range
-//[ ] filter range values onChange
-//[ ] acumulate totals for the cumulative column
+//[X] import and set up slider w/ range
+//[X] filter range values onChange
+//[X] acumulate totals for the cumulative column
 //[ ]
 
 class App extends Component {
@@ -22,9 +22,6 @@ class App extends Component {
       max: "",
       selectedRange: [],
     }
-    const Slider = require('rc-slider');
-    const createSliderWithTooltip = Slider.createSliderWithTooltip;
-    const Range = createSliderWithTooltip(Slider.Range);
 
   };
 
@@ -71,6 +68,7 @@ class App extends Component {
     this.setState({
       displayedMarketReturns: filteredReturns
     })
+    console.log('first results: ', this.state.displayedMarketReturns)
   }
 
   handleRangeChange = (values) => {
@@ -94,10 +92,11 @@ class App extends Component {
       // cumulativeTotal
     } = this.state
 
-    // console.log("returns: ", marketReturns)
-    // console.log([selectedRange[0], selectedRange[1]])
+    // console.log(displayedMarketReturns)
+    console.log('second results: ', displayedMarketReturns)
+
     return (
-      <div>
+      <div className="appContainer">
         <Range
           min={min}
           max={max}
@@ -108,8 +107,7 @@ class App extends Component {
         />
         <Table
           marketReturns={displayedMarketReturns}
-        // cumulativeTotal={cumulativeTotal}
-        // addCumulativeTotal={this.addCumulativeTotal}
+          selectedRange={selectedRange}
         />
       </div>
     )
