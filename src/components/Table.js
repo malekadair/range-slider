@@ -36,27 +36,31 @@ class Table extends Component {
 					</thead>
 					<tbody className="tableBody">
 						{this.props.marketReturns.map((marketReturn, index, arr) => {
+							if (marketReturn.year >= this.props.selectedRange[0] && marketReturn.year <= this.props.selectedRange[1]) {
+								// console.log('initial CT: ', this.state.cumulativeTotal)
+								this.cumulativeTotal += parseFloat(marketReturn.totalReturn)
+								// this.props.addCumulativeTotal(parseInt(marketReturn.totalReturn))
+								// cumulativeTotal += parseInt(marketReturn.totalReturn)
+								// console.log("post", this.state.cumulativeTotal)
 
-							// console.log('initial CT: ', this.state.cumulativeTotal)
-							this.cumulativeTotal += parseFloat(marketReturn.totalReturn)
-							// this.props.addCumulativeTotal(parseInt(marketReturn.totalReturn))
-							// cumulativeTotal += parseInt(marketReturn.totalReturn)
-							// console.log("post", this.state.cumulativeTotal)
+								return (
+									<TableRow
+										index={index}
+										marketReturn={marketReturn}
+										cumulativeTotal={this.cumulativeTotal}
+									// addCumulativeTotal={this.props.addCumulativeTotal}
+									/>
+									// <tr key={this.props.index}>
+									// 	<td>{marketReturn.year}</td>
+									// 	<td>{marketReturn.totalReturn}</td>
+									// 	<td>{this.cumulativeTotal}</td>
+									// </tr>
 
-							return (
-								<TableRow
-									index={index}
-									marketReturn={marketReturn}
-									cumulativeTotal={this.cumulativeTotal}
-								// addCumulativeTotal={this.props.addCumulativeTotal}
-								/>
-								// <tr key={this.props.index}>
-								// 	<td>{marketReturn.year}</td>
-								// 	<td>{marketReturn.totalReturn}</td>
-								// 	<td>{this.cumulativeTotal}</td>
-								// </tr>
-
-							)
+								)
+							}
+							else {
+								return
+							}
 						})}
 					</tbody>
 				</table>

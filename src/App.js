@@ -3,14 +3,19 @@ import './App.css';
 import marketReturns from './assets/returns.json'
 import Table from './components/Table';
 import Slider, { Range } from 'rc-slider';
+// import Tooltip from 'rc-tooltip'
 import 'rc-slider/assets/index.css';
+
+
+
 //todos:
 //[X] build table structure
 //[X] order data in ascending order
 //[X] import and set up slider w/ range
 //[X] filter range values onChange
 //[X] acumulate totals for the cumulative column
-//[ ]
+//[ ] fix off by one bug
+//[ ] add tooltip
 
 class App extends Component {
   constructor(props) {
@@ -68,7 +73,7 @@ class App extends Component {
     this.setState({
       displayedMarketReturns: filteredReturns
     })
-    console.log('first results: ', this.state.displayedMarketReturns)
+
   }
 
   handleRangeChange = (values) => {
@@ -76,20 +81,23 @@ class App extends Component {
     this.setState({
       selectedRange: values
     })
-    this.filterReturns()
+    // this.filterReturns()
   };
 
 
 
   render() {
+    // const Slider = require('rc-slider');
+    // const createSliderWithTooltip = Slider.createSliderWithTooltip;
+    // const Range = createSliderWithTooltip(Slider.Range);
+
     //destructuring state variables
     const {
       marketReturns,
       min,
       max,
       selectedRange,
-      displayedMarketReturns,
-      // cumulativeTotal
+      displayedMarketReturns
     } = this.state
 
     // console.log(displayedMarketReturns)
@@ -100,14 +108,14 @@ class App extends Component {
         <Range
           min={min}
           max={max}
+          onChange={this.handleRangeChange}
           defaultValue={[min, max]}
           value={[selectedRange[0], selectedRange[1]]}
-          onChange={this.handleRangeChange}
           allowCross='false'
           className='rangeSlider'
         />
         <Table
-          marketReturns={displayedMarketReturns}
+          marketReturns={marketReturns}
           selectedRange={selectedRange}
         />
       </div>
