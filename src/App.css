@@ -6,7 +6,9 @@
   justify-content: center;
   margin: auto;
 }
-
+.rangeText {
+  text-align: center;
+}
 .rangeSlider {
   margin: 30px auto;
 }
@@ -21,6 +23,9 @@ header {
 }
 header h4 {
   font-weight: 300;
+}
+thead tr {
+  border-bottom: 2px solid #dee2e6;
 }
 tr {
   border-top: 1px solid #dee2e6;

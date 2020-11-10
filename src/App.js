@@ -3,34 +3,20 @@ import './App.css';
 import marketReturns from './assets/returns.json'
 import Table from './components/Table';
 import Slider, { Range } from 'rc-slider';
-// import Tooltip from 'rc-tooltip'
 import 'rc-slider/assets/index.css';
-
-
-
-//todos:
-//[X] build table structure
-//[X] order data in ascending order
-//[X] import and set up slider w/ range
-//[X] filter range values onChange
-//[X] acumulate totals for the cumulative column
-//[ ] fix off by one bug
-//[ ] add tooltip
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       marketReturns: marketReturns,
-      displayedMarketReturns: marketReturns,
       min: "",
       max: "",
       selectedRange: [],
     }
-
   };
 
-  componentWillMount() {
+  componentDidMount() {
     marketReturns.reverse()
     this.setRange()
   }
@@ -40,11 +26,10 @@ class App extends Component {
     let minRange
     let maxRange
     // map through market return data to find the min and max years of the range
-    this.state.marketReturns.map(marketReturn => {
-      if (!minRange) {
+    this.state.marketReturns.map((marketReturn, index) => {
+      // establishes minRange and maxRange to the first marketReturn 
+      if (index == 0) {
         minRange = marketReturn.year
-      }
-      if (!maxRange) {
         maxRange = marketReturn.year
       }
       if (marketReturn.year < minRange) {
@@ -62,34 +47,15 @@ class App extends Component {
       selectedRange: [minRange, maxRange]
     })
   }
-  filterReturns = () => {
-    const { selectedRange, marketReturns } = this.state
-    const filteredReturns = marketReturns.filter(marketReturn => {
-      if (marketReturn.year >= selectedRange[0] && marketReturn.year <= selectedRange[1]) {
-        return true
-      }
-      return false
-    })
-    this.setState({
-      displayedMarketReturns: filteredReturns
-    })
-
-  }
 
   handleRangeChange = (values) => {
-    // console.log('values: ', values)
+    // sets selectedRange in state based on changing range values
     this.setState({
       selectedRange: values
     })
-    // this.filterReturns()
   };
 
-
-
   render() {
-    // const Slider = require('rc-slider');
-    // const createSliderWithTooltip = Slider.createSliderWithTooltip;
-    // const Range = createSliderWithTooltip(Slider.Range);
 
     //destructuring state variables
     const {
@@ -97,14 +63,11 @@ class App extends Component {
       min,
       max,
       selectedRange,
-      displayedMarketReturns
     } = this.state
-
-    // console.log(displayedMarketReturns)
-    console.log('second results: ', displayedMarketReturns)
 
     return (
       <div className="appContainer">
+        <h4 className="rangeText">Use the Slider below to select the range of years displayed in the table.</h4>
         <Range
           min={min}
           max={max}
@@ -118,7 +81,7 @@ class App extends Component {
           marketReturns={marketReturns}
           selectedRange={selectedRange}
         />
-      </div>
+      </div >
     )
   }
 }
